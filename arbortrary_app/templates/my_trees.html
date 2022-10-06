@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Arbortrary</title>
+</head>
+
+<body>
+    <header class="border-bottom border-5">
+        <div class=" row justify-content-between m-2">
+            <h1 class="col fw-bolder fs-1">
+                Arbortrary
+
+            </h1>
+            <div class="col text-end">
+                <a href="/dashboard/user/account/" class="col">My Trees</a>
+            </div>
+            <div class="col text-end">
+                <p class="my-1 text-nowrap fs-4">Welcome {{logged_user.first_name}}!</p>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <span class="col mx-3">A site to track randomly planted trees</span>
+            <div class="col text-end">
+                <a href="/" class=" btn btn-primary btn-sm text-end mx-2 my-1">Dashboard</a>
+                <a href="/logout/" class=" btn btn-danger btn-sm text-end mx-2 my-1">Logout</a>
+            </div>
+        </div>
+    </header>
+    <main class="row">
+        <div class="m-5 col">
+            <table class="table table-bordered">
+                <tr class="table-dark text-start">
+                    <th>Species</th>
+                    <th>Date Planted</th>
+                    <th>Actions</th>
+                </tr>
+                {% for tree in logged_user.trees.all %}
+                <tr class="table-light text-start">
+                    <td>{{tree.species}}</td>
+                    <td>{{tree.date_planted}}</td>
+                    <td>
+                        <a href="/dashboard/delete/{{tree.id}}/">delete</a>
+                        <a href="/dashboard/edit/{{tree.id}}/">edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col"></div>
+    </main>
+</body>
+
+</html>

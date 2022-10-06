@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Arbortrary</title>
+</head>
+
+<body>
+    <header class="border-bottom border-5">
+        <div class=" row justify-content-between m-2">
+            <h1 class="col fw-bolder fs-1">
+                Arbortrary
+
+            </h1>
+            <div class="col text-end">
+                <a href="/dashboard/user/account/" class="col">My Trees</a>
+            </div>
+            <div class="col text-end">
+                <p class="my-1 text-nowrap fs-4">Welcome {{logged_user.first_name}}!</p>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <span class="col mx-3">A site to track randomly planted trees</span>
+            <div class="col text-end">
+                <a href="/" class=" btn btn-primary btn-sm text-end mx-2 my-1">Dashboard</a>
+                <a href="/logout/" class=" btn btn-danger btn-sm text-end mx-2 my-1">Logout</a>
+            </div>
+        </div>
+    </header>
+    <main class="row">
+        <div class="my-5 mx-3">
+            <h2>{{tree_to_show.species}} planted by {{tree_to_show.planted_by.first_name}} {{tree_to_show.planted_by.last_name}}</h2>
+        </div>
+        <div class="m-5 col text-start fs-3">
+            <div>Where: <span>{{tree_to_show.location}}</span></div>
+            <div>When: <span>{{tree_to_show.date_planted}}</span></div>
+            <div>Why: <span>{{tree_to_show.reason}}</span></div>
+        </div>
+        
+        <div class="col">
+            <h4>Visited By:</h4>
+        <div class="border border-3 border-dark w-50 text-primary">
+            {% for visitor in tree_to_show.visited_by.all %}
+            <div>{{visitor.first_name}} {{visitor.last_name}}</div>
+            {% endfor %}
+        </div>
+        {% if not logged_user in tree_to_show.visited_by.all %}
+        <div>
+            <a href="/dashboard/add_visit/{{tree_to_show.id}}/">Did you visit this tree?</a>
+        </div>
+        {% endif %}
+        </div>
+    </main>
+</body>
+
+</html>
